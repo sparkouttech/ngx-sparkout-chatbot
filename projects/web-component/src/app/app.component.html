@@ -1,0 +1,75 @@
+<div class="chat_base" *ngIf="!showMessagePanel" (click)="openMessagePanel()">
+  <!-- <a class="ava-img"></a> -->
+  <a class="eva">ASK {{name}}</a>
+</div>
+
+
+<div class="chatwrap" *ngIf="showMessagePanel">
+  <div class="chat-header">
+    <div class="chat-main-head gap-4">
+      <div>
+        <h3>Ask {{name}}</h3>
+      </div>
+      <div class="d-flex align-items-center justify-content-center gap-4">
+        <a (click)="toggleMinMax=!toggleMinMax">
+          <svg *ngIf="!toggleMinMax" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-down-left">
+            <line x1="17" y1="7" x2="7" y2="17"></line>
+            <polyline points="17 17 7 17 7 7"></polyline>
+          </svg>
+          <svg *ngIf="toggleMinMax" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up-right">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+        <a (click)="openMessagePanel()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <h4>Hi !</h4>
+    <p>I am {{name}}, your personal assistant to help you with website related queries</p>
+  </div>
+  <!-- <p>{{apiresonsemessage}}</p> -->
+  <div *ngIf="!toggleMinMax" [ngClass]="toggleMinMax ? 'height' :'mx-height'">
+    <div class="chat-body" #chatPanel>
+      <div class="send-wrap" *ngFor="let show of questions; let i=index;">
+        <div class="send-chat-msg">
+          <p>{{show}}</p>
+        </div>
+
+        <div class="recive-wrap">
+          <div *ngIf="!answers[i]" class="typing-loading">
+            <!-- <img class="typing-loading" src="../assets/image/typing-loading.gif"> -->
+            <div class="chat-bubble">
+              <div class="typing">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+          <p class="recieved-chat-msg" *ngIf="answers[i]">{{answers[i]}}</p>
+
+        </div>
+        <!-- <p class="sent-time">11.05 pm</p> -->
+      </div>
+
+
+      <div class="chat-footer">
+        <form [formGroup]="chatForm" (ngSubmit)="messageSend()">
+          <input type="text" class="form-text" formControlName="message" placeholder="Enter your message" required>
+          <button type="submit" class="send-message" [disabled]="chatForm.invalid">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

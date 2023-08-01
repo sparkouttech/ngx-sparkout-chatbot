@@ -1,0 +1,38 @@
+{
+  "name": "ngx-sparkout-chatbot",
+  "version": "0.0.3",
+  "description": "This package provides a user interface (UI) for a chat widget that deals with organization data. It implies that users can interact with the chat widget to communicate and access specific information related to an organization.",
+  "keywords": [
+    "chatbot",
+    "chat",
+    "plugin",
+    "widget",
+    "Angular",
+    "React",
+    "chat plugin",
+    "openai"
+  ],
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Rubanrubi",
+      "email": "ruban@sparkouttech.com",
+      "url": "https://github.com/Rubanrubi"
+    }
+  ],
+  "homepage": "https://github.com/sparkouttech/ngx-sparkout-chatbot.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sparkouttech/ngx-sparkout-chatbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sparkouttech/ngx-sparkout-chatbot/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}
