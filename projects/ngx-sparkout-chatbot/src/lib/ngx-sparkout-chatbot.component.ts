@@ -2,22 +2,15 @@ import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSparkoutChatbotService } from './ngx-sparkout-chatbot.service';
 
-interface ChatBotConfig {
-  base_url: string,
-  name: string,
-  additionalDetails?: any
-}
-
 @Component({
   selector: 'lib-ngx-sparkout-chatbot',
   templateUrl: './ngx-sparkout-chatbot.component.html',
   styleUrls: ['./ngx-sparkout-chatbot.component.css']
 })
 export class NgxSparkoutChatbotComponent implements OnInit, OnChanges {
-  @Input('baseUrl') baseUrl: any;
   @Input('name') name: any;
+  @Input('accessToken') accessToken: any;
   @ViewChild('chatPanel') chatPanelRef!: ElementRef;
-  public chatConfig!: ChatBotConfig;
   public chatForm: FormGroup;
   public questions: Array<string> = [];
   public answers: Array<string> = [];
@@ -54,18 +47,9 @@ export class NgxSparkoutChatbotComponent implements OnInit, OnChanges {
    */
   ngOnChanges(changes: SimpleChanges) {
     console.log('onchanges from libray', changes);
-    this.baseUrl = changes['baseUrl'].currentValue;
+    this.accessToken = changes['accessToken'].currentValue;
     this.name = changes['name'].currentValue;
-    this.ngxChatBotService.setBaseURI(this.baseUrl);
-  }
-
-  /**
-   * Sets config datas
-   * @param data
-   */
-  public setConfigDatas(data: any) {
-    this.chatConfig = JSON.parse(data);
-    this.ngxChatBotService.setBaseURI(this.chatConfig.base_url);
+    this.ngxChatBotService.setAccessToken(this.accessToken);
   }
 
   /**

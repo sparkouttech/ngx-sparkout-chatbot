@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -8,36 +8,33 @@ import { catchError, switchMap } from 'rxjs/operators';
 })
 export class NgxSparkoutChatbotService {
 
-  public apiBaseURI: any;
+  public accessToken: any;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   /**
    * Sends message
    * @param data
    * @returns message
    */
-  public sendMessage(data:any): Observable<any> {
-    return this.http.post(`${this.apiBaseURI}/answer`, {'question':data}).pipe(
-      switchMap((response: any) => {
-        console.log('response', response);
-        // Return a new observable with the response
-        return of(response.answer);
-      }),
-      catchError((err) => {
-        console.log('error while sending message to server', err);
-        return throwError(err);
-      })
-    );
+  public sendMessage(data: any): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${this.accessToken}` }
+    return this.http.post(`https://api.seaswap.co/answer`, { 'question': data }, { headers }).pipe(
+      switchMap((response: any) => of(response.answer))
+    )
   }
 
+
+
   /**
-   * Sets base uri
-   * @param baseURI
+   * Sets access token
+   * @param accessToken
    */
-  public setBaseURI(baseURI: string) {
-    this.apiBaseURI = baseURI;
+  public setAccessToken(accessToken: string) {
+    console.log('access token set function', accessToken);
+    this.accessToken = accessToken;
   }
 }

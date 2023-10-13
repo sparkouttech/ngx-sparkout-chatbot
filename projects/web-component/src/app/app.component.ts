@@ -7,17 +7,17 @@ import { NgxSparkoutChatbotService } from './ngx-sparkout-chatbot.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements  OnInit, OnChanges {
-  @Input('baseUrl') baseUrl: any;
+export class AppComponent implements OnInit, OnChanges {
   @Input('name') name: any;
+  @Input('accessToken') accessToken: any;
   @ViewChild('chatPanel') chatPanelRef!: ElementRef;
-  public chatConfig: any;
   public chatForm: FormGroup;
   public questions: Array<string> = [];
   public answers: Array<string> = [];
   public showMessagePanel: boolean = false;
   public showSpinner: boolean = false;
   public toggleMinMax: boolean = false;
+  public apiError: any;
 
   /**
    * Creates an instance of ngx sparkout chatbot component.
@@ -48,9 +48,9 @@ export class AppComponent implements  OnInit, OnChanges {
    */
   ngOnChanges(changes: SimpleChanges) {
     console.log('onchanges from libray', changes);
-    this.baseUrl = changes['baseUrl'].currentValue;
+    this.accessToken = changes['accessToken'].currentValue;
     this.name = changes['name'].currentValue;
-    this.ngxChatBotService.setBaseURI(this.baseUrl);
+    this.ngxChatBotService.setAccessToken(this.accessToken);
   }
 
   /**
@@ -61,11 +61,18 @@ export class AppComponent implements  OnInit, OnChanges {
       this.questions.push(this.chatForm.value.message);
       this.scrollToBottom();
       if (this.chatForm.value.message) {
-        this.ngxChatBotService.sendMessage(this.chatForm.value.message).subscribe((data: any) => {
-          if (data) {
-            this.showSpinner = true;
-            this.answers.push(data);
-            this.scrollToBottom();
+        this.ngxChatBotService.sendMessage(this.chatForm.value.message).subscribe({
+          next: (response: any) => {
+            if (response) {
+              this.apiError = '';
+              this.showSpinner = true;
+              this.answers.push(response);
+              this.scrollToBottom();
+            }
+          },
+          error: (error: any) => {
+            console.log('api error-----', error['detail']);
+            this.apiError = error['detail'];
           }
         })
         this.chatForm.reset();

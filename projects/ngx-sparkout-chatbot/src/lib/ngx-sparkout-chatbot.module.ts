@@ -25,7 +25,7 @@ import  { createCustomElement } from '@angular/elements';
 export class NgxSparkoutChatbotModule {
   constructor(private injector: Injector) {
     const element = createCustomElement(NgxSparkoutChatbotComponent, { injector: this.injector });
-    customElements.define('sparkout-chat-widget', element);
+    customElements.define('ngx-sparkout-chat-widget', element);
   }
   ngDoBootstrap() {}
 }

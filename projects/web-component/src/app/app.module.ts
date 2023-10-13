@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class AppModule {
   constructor(private injector: Injector) {
     const element = createCustomElement(AppComponent, { injector: this.injector });
-    customElements.define('sparkout-chat-widget', element);
+    customElements.define('ngx-sparkout-chat-widget', element);
   }
-  ngDoBootstrap() { }
+  ngDoBootstrap() {}
 }

@@ -1,6 +1,6 @@
 {
   "name": "ngx-sparkout-chatbot",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "This package provides a user interface (UI) for a chat widget that deals with organization data. It implies that users can interact with the chat widget to communicate and access specific information related to an organization.",
   "keywords": [
     "chatbot",
