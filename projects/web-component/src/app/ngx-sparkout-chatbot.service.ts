@@ -22,7 +22,7 @@ export class NgxSparkoutChatbotService {
    */
   public sendMessage(data: any): Observable<any> {
     const headers = { 'Authorization': `Bearer ${this.accessToken}` }
-    return this.http.post(`https://api.seaswap.co/answer`, { 'question': data }, { headers }).pipe(
+    return this.http.post(`https://api.sparkouttech.com/answer`, { 'question': data }, { headers }).pipe(
       switchMap((response: any) => of(response.answer))
     )
   }

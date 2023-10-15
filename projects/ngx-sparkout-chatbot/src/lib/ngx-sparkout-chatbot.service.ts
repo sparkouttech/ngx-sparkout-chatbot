@@ -9,11 +9,11 @@ import { catchError, switchMap } from 'rxjs/operators';
 export class NgxSparkoutChatbotService {
 
   public accessToken: any;
-  public apiError: any;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   /**
    * Sends message
@@ -22,24 +22,19 @@ export class NgxSparkoutChatbotService {
    */
   public sendMessage(data: any): Observable<any> {
     const headers = { 'Authorization': `Bearer ${this.accessToken}` }
-    return this.http.post(`https://api.seaswap.co/answer`, { 'question': data }, { headers }).pipe(
-      switchMap((response: any) => {
-        // Return a new observable with the response
-        return of(response.answer);
-      }),
-      catchError((err) => {
-        this.apiError = err.detail;
-        console.log('error while sending message to server', err);
-        return throwError(err);
-      })
-    );
+    return this.http.post(`https://api.sparkouttech.com/answer`, { 'question': data }, { headers }).pipe(
+      switchMap((response: any) => of(response.answer))
+    )
   }
+
+
 
   /**
    * Sets access token
    * @param accessToken
    */
   public setAccessToken(accessToken: string) {
+    console.log('access token set function', accessToken);
     this.accessToken = accessToken;
   }
 }

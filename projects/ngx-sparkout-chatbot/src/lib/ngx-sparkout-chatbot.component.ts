@@ -17,6 +17,7 @@ export class NgxSparkoutChatbotComponent implements OnInit, OnChanges {
   public showMessagePanel: boolean = false;
   public showSpinner: boolean = false;
   public toggleMinMax: boolean = false;
+  public apiError: string = '';
 
   /**
    * Creates an instance of ngx sparkout chatbot component.
@@ -46,7 +47,7 @@ export class NgxSparkoutChatbotComponent implements OnInit, OnChanges {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    console.log('onchanges from libray', changes);
+    // console.log('onchanges from libray', changes);
     this.accessToken = changes['accessToken'].currentValue;
     this.name = changes['name'].currentValue;
     this.ngxChatBotService.setAccessToken(this.accessToken);
@@ -60,11 +61,17 @@ export class NgxSparkoutChatbotComponent implements OnInit, OnChanges {
       this.questions.push(this.chatForm.value.message);
       this.scrollToBottom();
       if (this.chatForm.value.message) {
-        this.ngxChatBotService.sendMessage(this.chatForm.value.message).subscribe((data: any) => {
-          if (data) {
-            this.showSpinner = true;
-            this.answers.push(data);
-            this.scrollToBottom();
+        this.ngxChatBotService.sendMessage(this.chatForm.value.message).subscribe({
+          next: (response: any) => {
+            if (response) {
+              this.apiError = '';
+              this.showSpinner = true;
+              this.answers.push(response);
+              this.scrollToBottom();
+            }
+          },
+          error: (error: any) => {
+            this.apiError = error.error['detail'];
           }
         })
         this.chatForm.reset();

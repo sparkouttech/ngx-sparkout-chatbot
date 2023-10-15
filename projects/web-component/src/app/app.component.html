@@ -55,13 +55,13 @@
         </div>
         <!-- <p class="sent-time">11.05 pm</p> -->
       </div>
-      <p class="limit-exceed-error">Maximum limit exceeds</p>
+      <p class="limit-exceed-error" *ngIf="apiError !== ''">{{apiError}}</p>
 
 
       <div class="chat-footer">
         <form [formGroup]="chatForm" (ngSubmit)="messageSend()">
-          <input type="text" class="form-text" formControlName="message" placeholder="Enter your message" required>
-          <button type="submit" class="send-message" [disabled]="chatForm.invalid">
+          <input type="text" [readonly]="apiError !== ''" class="form-text" formControlName="message" placeholder="Enter your message" required>
+          <button type="submit" class="send-message" [disabled]="chatForm.invalid || apiError !== ''">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
               stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
               <line x1="22" y1="2" x2="11" y2="13"></line>

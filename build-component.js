@@ -9,6 +9,6 @@ build = async () =>{
       ];
 
       await fs.ensureDir('widget');
-      await concat(files, 'widget/sparkchat-widget.js');
+      await concat(files, 'widget/sparkout-chat-widget.js');
 }
 build();

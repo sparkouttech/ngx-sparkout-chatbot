@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnChanges {
   public showMessagePanel: boolean = false;
   public showSpinner: boolean = false;
   public toggleMinMax: boolean = false;
-  public apiError: any;
+  public apiError: string = '';
 
   /**
    * Creates an instance of ngx sparkout chatbot component.
@@ -47,7 +47,7 @@ export class AppComponent implements OnInit, OnChanges {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges) {
-    console.log('onchanges from libray', changes);
+    // console.log('onchanges from libray', changes);
     this.accessToken = changes['accessToken'].currentValue;
     this.name = changes['name'].currentValue;
     this.ngxChatBotService.setAccessToken(this.accessToken);
@@ -71,8 +71,7 @@ export class AppComponent implements OnInit, OnChanges {
             }
           },
           error: (error: any) => {
-            console.log('api error-----', error['detail']);
-            this.apiError = error['detail'];
+            this.apiError = error.error['detail'];
           }
         })
         this.chatForm.reset();
